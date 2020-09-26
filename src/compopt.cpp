@@ -81,6 +81,7 @@ const struct compopt compopts[] = {
   {"-Werror", AFFECTS_COMP}, // don't exit with error when preprocessing
   {"-Wl,", TAKES_CONCAT_ARG | AFFECTS_COMP},
   {"-Wno-error", AFFECTS_COMP},
+  {"-Xarch_", TAKES_ARG | TAKES_CONCAT_ARG | AFFECTS_COMP},
   {"-Xassembler", TAKES_ARG | TAKES_CONCAT_ARG | AFFECTS_COMP},
   {"-Xclang", TAKES_ARG},
   {"-Xlinker", TAKES_ARG | TAKES_CONCAT_ARG | AFFECTS_COMP},

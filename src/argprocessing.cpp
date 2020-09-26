@@ -294,13 +294,13 @@ process_arg(Context& ctx,
     log("Unsupported compiler option for direct mode: {}", args[i]);
     config.set_direct_mode(false);
   }
-
+/*
   // -Xarch_* options are too hard.
   if (Util::starts_with(args[i], "-Xarch_")) {
     log("Unsupported compiler option: {}", args[i]);
     return Statistic::unsupported_compiler_option;
   }
-
+*/
   // Handle -arch options.
   if (args[i] == "-arch") {
     ++i;
