@@ -81,6 +81,7 @@ const struct compopt compopts[] = {
   {"-Werror", AFFECTS_COMP}, // don't exit with error when preprocessing
   {"-Wl,", TAKES_CONCAT_ARG | AFFECTS_COMP},
   {"-Wno-error", AFFECTS_COMP},
+  {"-Xarch_", TAKES_ARG | TAKES_CONCAT_ARG | AFFECTS_COMP},
   {"-Xassembler", TAKES_ARG | TAKES_CONCAT_ARG | AFFECTS_COMP},
   {"-Xclang", TAKES_ARG},
   {"-Xlinker", TAKES_ARG | TAKES_CONCAT_ARG | AFFECTS_COMP},
@@ -281,4 +282,12 @@ compopt_prefix_affects_comp(const std::string& option)
   // Prefix options have to take concatenated args.
   const struct compopt* co = find_prefix(option);
   return co && (co->type & TAKES_CONCAT_ARG) && (co->type & AFFECTS_COMP);
+}
+
+bool
+compopt_prefix_takes_arg(const std::string& option)
+{
+  // Prefix options have to take concatenated args.
+  const struct compopt* co = find_prefix(option);
+  return co && (co->type & TAKES_CONCAT_ARG) && (co->type & TAKES_ARG);
 }

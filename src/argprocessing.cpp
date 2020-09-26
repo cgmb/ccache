@@ -295,8 +295,9 @@ process_arg(Context& ctx,
     config.set_direct_mode(false);
   }
 
-  // -Xarch_* options are too hard.
-  if (Util::starts_with(args[i], "-Xarch_")) {
+  // Most -Xarch_* options are too hard.
+  if (Util::starts_with(args[i], "-Xarch_")
+      && !Util::starts_with(args[i], "-Xarch_gfx")) {
     log("Unsupported compiler option: {}", args[i]);
     return Statistic::unsupported_compiler_option;
   }
@@ -345,6 +346,14 @@ process_arg(Context& ctx,
   }
   if (compopt_prefix_affects_comp(args[i])) {
     state.compiler_only_args.push_back(args[i]);
+    if (compopt_prefix_takes_arg(args[i])) {
+      if (i == args.size() - 1) {
+        log("Missing argument to {}", args[i]);
+        return Statistic::bad_compiler_arguments;
+      }
+      state.compiler_only_args.push_back(args[i + 1]);
+      ++i;
+    }
     return nullopt;
   }
 
