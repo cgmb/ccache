@@ -17,6 +17,7 @@
 // Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
 #include "compopt.hpp"
+#include "Util.hpp"
 
 #include "third_party/fmt/core.h"
 
@@ -226,7 +227,7 @@ bool
 compopt_affects_comp(const std::string& option)
 {
   const struct compopt* co = find(option);
-  return co && (co->type & AFFECTS_COMP);
+  return (co && (co->type & AFFECTS_COMP)) || Util::starts_with(option, "-Xarch_");
 }
 
 bool
@@ -254,7 +255,7 @@ bool
 compopt_takes_arg(const std::string& option)
 {
   const struct compopt* co = find(option);
-  return co && (co->type & TAKES_ARG);
+  return (co && (co->type & TAKES_ARG)) || Util::starts_with(option, "-Xarch_");
 }
 
 bool
@@ -282,4 +283,12 @@ compopt_prefix_affects_comp(const std::string& option)
   // Prefix options have to take concatenated args.
   const struct compopt* co = find_prefix(option);
   return co && (co->type & TAKES_CONCAT_ARG) && (co->type & AFFECTS_COMP);
+}
+
+bool
+compopt_prefix_takes_arg(const std::string& option)
+{
+  // Prefix options have to take concatenated args.
+  const struct compopt* co = find_prefix(option);
+  return co && (co->type & TAKES_CONCAT_ARG) && (co->type & TAKES_ARG);
 }

@@ -344,6 +344,7 @@ process_arg(Context& ctx,
     return nullopt;
   }
   if (compopt_prefix_affects_comp(args[i])) {
+    // should check if it takes args!
     state.compiler_only_args.push_back(args[i]);
     return nullopt;
   }
