@@ -1138,8 +1138,7 @@ process_args(Context& ctx)
     state.cpp_args.push_back("-fpch-preprocess");
   }
   if (!state.explicit_language.empty()) {
-    state.cpp_args.push_back("-x");
-    state.cpp_args.push_back(state.explicit_language);
+    state.cpp_args.push_back("-x" + state.explicit_language);
   }
 
   args_info.strip_diagnostics_colors =
